@@ -1,1 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
 
+    <title>BuyBloom - Home</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        🛒 BuyBloom
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+
+        {% if session.get("user_id") %}
+
+            <a href="/cart">Cart</a>
+            <a href="/orders">Orders</a>
+            <a href="/logout">Logout</a>
+
+        {% else %}
+
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+
+        {% endif %}
+
+    </div>
+
+</nav>
+
+
+<section class="hero">
+
+    <h1>Welcome to BuyBloom 🛍️</h1>
+
+    <p>
+        Discover products you love, all in one place.
+    </p>
+
+    <a href="/products"
+       class="hero-btn">
+        Shop Now
+    </a>
+
+</section>
+
+
+<section class="container">
+
+    <div class="section-heading">
+
+        <h2>All Products</h2>
+
+        <a href="/products">
+            View All →
+        </a>
+
+    </div>
+
+
+    <div class="product-grid">
+
+        {% for product in products %}
+
+        <div class="product-card">
+
+            <img
+                src="{{ product['image'] }}"
+                alt="{{ product['name'] }}"
+            >
+
+            <div class="product-info">
+
+                <span class="category">
+                    {{ product['category'] }}
+                </span>
+
+                <h3>
+                    {{ product['name'] }}
+                </h3>
+
+                <p class="price">
+                    ₹{{ product['price'] }}
+                </p>
+
+                {% if session.get("user_id") %}
+
+                    {% if product['stock'] > 0 %}
+
+                    <form
+                        action="{{ url_for('add_to_cart', product_id=product['id']) }}"
+                        method="POST"
+                    >
+
+                        <button class="add-btn"
+                                type="submit">
+                            Add to Cart 🛒
+                        </button>
+
+                    </form>
+
+                    {% else %}
+
+                    <button class="disabled-btn">
+                        Out of Stock
+                    </button>
+
+                    {% endif %}
+
+                {% else %}
+
+                    <a href="/login"
+                       class="add-btn">
+                        Login to Buy
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    © 2026 BuyBloom | E-Commerce Backend API
+
+</footer>
+
+</body>
+</html>

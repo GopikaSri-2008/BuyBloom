@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>BuyBloom - Login</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        🛒 BuyBloom
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <a href="/register">Register</a>
+
+    </div>
+
+</nav>
+
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <h2>Welcome Back 👋</h2>
+
+        <p>Login to continue shopping</p>
+
+        {% if error %}
+
+        <div class="error">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+        <form method="POST">
+
+            <label>Email</label>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+            >
+
+            <button type="submit"
+                    class="primary-btn">
+                Login
+            </button>
+
+        </form>
+
+        <p class="auth-link">
+
+            Don't have an account?
+
+            <a href="/register">
+                Register
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
