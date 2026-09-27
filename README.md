@@ -35,21 +35,18 @@ BuyBloom is a Python Flask-based e-commerce application developed as part of a P
 ## Project Structure
 
 BuyBloom/
-│
-├── app.py
-├── database.db
-├── requirements.txt
-│
-├── templates/
-│   ├── index.html
-│   ├── login.html
-│   ├── register.html
-│   ├── products.html
-│   ├── cart.html
-│   └── orders.html
-│
-└── static/
-    └── style.css
+- app.py
+- database.db
+- requirements.txt
+- templates/
+  - index.html
+  - login.html
+  - register.html
+  - products.html
+  - cart.html
+  - orders.html
+- static/
+  - style.css
 
 ## Installation
 
