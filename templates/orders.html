@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>BuyBloom - Orders</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        🛒 BuyBloom
+    </div>
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+        <a href="/products">Products</a>
+        <a href="/cart">Cart</a>
+        <a href="/orders">Orders</a>
+        <a href="/logout">Logout</a>
+
+    </div>
+
+</nav>
+
+
+<section class="container">
+
+    <h2>Order History 📦</h2>
+
+
+    {% if orders %}
+
+        {% for order in orders %}
+
+        <div class="order-card">
+
+            <div>
+
+                <h3>
+                    Order #{{ order["id"] }}
+                </h3>
+
+                <p>
+                    Total:
+                    <strong>
+                        ₹{{ order["total"] }}
+                    </strong>
+                </p>
+
+                <p>
+                    Status:
+
+                    {% if order["status"] == "Cancelled" %}
+
+                        <span class="cancelled">
+                            Cancelled
+                        </span>
+
+                    {% else %}
+
+                        <span class="placed">
+                            {{ order["status"] }}
+                        </span>
+
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+
+            {% if order["status"] == "Placed" %}
+
+            <form
+                method="POST"
+                action="{{ url_for('cancel_order', order_id=order['id']) }}"
+            >
+
+                <button
+                    type="submit"
+                    class="cancel-btn"
+                >
+                    Cancel Order
+                </button>
+
+            </form>
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty">
+
+            <h3>
+                No orders yet.
+            </h3>
+
+            <p>
+                Start shopping and place your first order.
+            </p>
+
+            <a
+                class="primary-btn"
+                href="/products"
+            >
+                Start Shopping
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+</body>
+</html>
